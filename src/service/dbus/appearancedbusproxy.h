@@ -67,8 +67,8 @@ public Q_SLOTS:
     void SetScreenScaleFactors(const ScaleFactors &factors);
 
 Q_SIGNALS:
-    void SetScaleFactorStarted();
-    void SetScaleFactorDone();
+    void SetScaleFactorStarted(double oldFactor);
+    void SetScaleFactorDone(double newFactor);
 
     // accountInter
 public Q_SLOTS:

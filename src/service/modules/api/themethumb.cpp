@@ -467,5 +467,6 @@ QString prepareOutputPath(QString type0, QString id, int version)
 
 void UpdateScaleFactor(double scaleFactor)
 {
+    qInfo() << __FUNCTION__ << scaleFactor;
     g_ScaleFactor = scaleFactor;
 }

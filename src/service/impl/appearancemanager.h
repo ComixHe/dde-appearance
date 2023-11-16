@@ -114,8 +114,8 @@ public:
 public Q_SLOTS:
     void handleWmWorkspaceCountChanged(int count);
     void handleWmWorkspaceSwithched(int from,int to);
-    void handleSetScaleFactorStarted();
-    void handleSetScaleFactorDone();
+    void handleSetScaleFactorStarted(double oldFactor);
+    void handleSetScaleFactorDone(double newFactor);
     void handleTimezoneChanged(QString timezone);
     void handleTimeUpdate();
     void handleNTPChanged();

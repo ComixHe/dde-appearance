@@ -212,14 +212,14 @@ void AppearanceManager::handleWmWorkspaceSwithched(int from, int to)
     dbusProxy->SetCurrentWorkspace(to);
 }
 
-void AppearanceManager::handleSetScaleFactorStarted()
+void AppearanceManager::handleSetScaleFactorStarted([[maybe_unused]] double oldFactor)
 {
     QString body = tr("Start setting display scaling, please wait patiently");
     QString summary = tr("Display scaling");
     dbusProxy->Notify("dde-control-center", "dialog-window-scale", summary, body, {}, {}, 0);
 }
 
-void AppearanceManager::handleSetScaleFactorDone()
+void AppearanceManager::handleSetScaleFactorDone(double newFactor)
 {
     QString body = tr("Log out for display scaling settings to take effect");
     QString summary = tr("Set successfully");
@@ -231,7 +231,7 @@ void AppearanceManager::handleSetScaleFactorDone()
     int expireTimeout = 15 * 1000;
     dbusProxy->Notify("dde-control-center", "dialog-window-scale", summary, body, options, optionMap, expireTimeout);
     // 更新ScaleFactor缓存
-    getScaleFactor();
+    UpdateScaleFactor(newFactor);
 }
 
 void AppearanceManager::handleTimezoneChanged(QString timezone)
@@ -1254,7 +1254,6 @@ QString AppearanceManager::doGetWallpaperSlideShow(QString monitorName)
 double AppearanceManager::getScaleFactor()
 {
     double scaleFactor = dbusProxy->GetScaleFactor();
-    qInfo()<<__FUNCTION__<<"UpdateScaleFactor"<<scaleFactor;
     UpdateScaleFactor(scaleFactor);
     return scaleFactor;
 }
